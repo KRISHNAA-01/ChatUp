@@ -11,6 +11,10 @@ const fs = require('fs');
 const prisma = new PrismaClient();
 const app = express();
 const server = http.createServer(app);
+const allowedOrigins = [
+  'https://chat-up-eosin.vercel.app',
+  'http://localhost:5173'
+];
 const io = socketIo(server, {
   cors: {
     origin: allowedOrigins,
@@ -19,10 +23,6 @@ const io = socketIo(server, {
   },
 });
 
-const allowedOrigins = [
-  'https://chat-up-eosin.vercel.app',
-  'http://localhost:5173'
-];
 
 app.use(cors({
   origin: allowedOrigins,
