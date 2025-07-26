@@ -1,4 +1,5 @@
 const express = require('express');
+const cron = require('node-cron');
 const { PrismaClient } = require('@prisma/client');
 const http = require('http');
 const cors = require('cors');
@@ -106,6 +107,24 @@ io.on('connection', (socket) => {
     console.log('User disconnected:', socket.id);
   });
 });
+// Delete messages older than 1 hour every 10 minutes
+cron.schedule('*/10 * * * *', async () => {
+  const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000);
+
+  try {
+    const deleted = await prisma.message.deleteMany({
+      where: {
+        timestamp: {
+          lt: oneHourAgo,
+        },
+      },
+    });
+    console.log(`Deleted ${deleted.count} old messages`);
+  } catch (err) {
+    console.error('Error deleting old messages:', err);
+  }
+});
+
 
 const PORT = 5000;
 server.listen(PORT, () => {
