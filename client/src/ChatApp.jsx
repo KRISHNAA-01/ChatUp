@@ -3,7 +3,10 @@ import { io } from 'socket.io-client';
 import axios from 'axios';
 import './ChatApp.css';
 
-const socket = io('http://localhost:5000');
+// const socket = io('http://localhost:5000');
+const backendUrl = process.env.NODE_ENV === 'production'
+
+const socket = io('https://chatup-ou42.onrender.com');
 
 function ChatApp() {
   const [messages, setMessages] = useState([]);
@@ -12,7 +15,7 @@ function ChatApp() {
   const [file, setFile] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/messages').then(res => {
+    axios.get('https://chatup-ou42.onrender.com/messages').then(res => {
       setMessages(res.data);
     });
 
@@ -38,7 +41,7 @@ const sendMessage = async () => {
     formData.append('username', username);
 
     try {
-      await axios.post('http://localhost:5000/upload', formData);
+      await axios.post('https://chatup-ou42.onrender.com/upload', formData);
       
       setFile(null);
       document.getElementById('fileInput').value = ''; // Reset file input field
@@ -55,7 +58,7 @@ const sendMessage = async () => {
 
 
   const renderMessageContent = (msgText) => {
-    if (msgText.startsWith('http://localhost:5000/uploads/')) {
+    if (msgText.startsWith('https://chatup-ou42.onrender.com/uploads/')) {
       return (<>
         <a href={msgText} target="_blank" rel="noopener noreferrer">
           📎 File
