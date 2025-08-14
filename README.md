@@ -12,7 +12,6 @@ It supports **file uploads**, **real-time messaging** using Socket.IO, and **aut
 - 🗑 **Auto-delete messages after 1 hour**
 - 🗄 **PostgreSQL database** with Prisma ORM
 - 🔒 **CORS configuration for security**
-- 🌐 **Deployed on Render**
 
 ---
 
@@ -21,7 +20,7 @@ It supports **file uploads**, **real-time messaging** using Socket.IO, and **aut
 **Backend:** Node.js, Express.js  
 **Database:** PostgreSQL (Prisma ORM)  
 **Real-time:** Socket.IO  
-**Hosting:** Render
+**Hosting:** Render, VERCEL
 
 ---
 
